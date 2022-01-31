@@ -1,30 +1,85 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
+  <Navbar :logo="logo_src" :alt="app_name" />
   <router-view/>
+  <Footer />
 </template>
 
+<script>
+import Navbar from '@/components/Navbar.vue'
+import Footer from '@/components/Footer.vue'
+
+export default {
+  components: {
+    Navbar,
+    Footer
+  },
+  data() {
+    return {
+      logo_src: './img/logo.png',
+      app_name: 'Burger Shop'
+    }
+  }
+}
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+  :root {
+    --color-primary: #673ab7;
+    --color-primary-accent: #8e63da;
+    --color-secondary: #fccf3f;
+    --color-secondary-accent: #fce93f;
+    --color-white: #fff;
+    --color-black: #000;
+    --color-gray: #efefef;
+    --font-default: 'Roboto Condensed', sans-serif;
+    --font-alt: 'Lobster', cursive;
+    --transition-default: all .2s ease-out;
+  }
 
-#nav {
-  padding: 30px;
-}
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-default);
+  }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+  ::selection {
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
+  }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+  html, 
+  body {
+    height: 100%;
+  }
+
+  #app {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-alt);
+    color: var(--color-primary);
+    margin-bottom: 1em;
+  }
+
+  h1 {
+    font-size: 40px;
+    text-align: center;
+    text-decoration: underline;
+    text-decoration-color: var(--color-secondary);
+  }
+
+  .main-container {
+    flex: 2;
+    background-color: #fafafa;
+    padding: clamp(40px, 7vw, 80px) 5%;
+  }
 </style>
