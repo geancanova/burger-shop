@@ -76,8 +76,11 @@ export default {
     async getOrders() {
       const req = await fetch('//localhost:3000/burgers');
       const data = await req.json();
-      
+
+      if (!data) return;
       this.burgers = data;
+      
+      console.log(this.burgers);
 
       // Resgatar status
       this.getOrderStatus();
@@ -117,21 +120,25 @@ export default {
     async deleteAllOrders() {
       const req = await fetch('//localhost:3000/burgers');
       const data = await req.json();
-      await data.map(entry => {
-        fetch(`//localhost:3000/burgers/${entry.id}`, {
-          method: 'DELETE'
-        });
-        console.log(entry.id);
+      await data.map((entry, i) => {
+
+        // (NEEDS FIX) Prevent json server to crash
+        setTimeout(() => {
+          console.log(entry.id);
+          fetch(`//localhost:3000/burgers/${entry.id}`, {
+            method: 'DELETE'
+          });
+        }, 500 * i);
       });
 
-      // Mensagem do sistema
-      this.msg = `Pedidos removidos com sucesso!`;
+      // (NEEDS FIX) Await all registers removal
+      setTimeout(() => {
+        // Mensagem do sistema
+        this.msg = `Pedidos removidos com sucesso!`;
 
-      console.log('update burgers');
-
-      // (NEEDS FIX) Force Update Orders
-      this.burgers = [];
-      // this.getOrders();
+        // Update Orders
+        this.getOrders();
+      }, 500 * data.length);
     }
   },
   mounted() {
