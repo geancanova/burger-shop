@@ -4,6 +4,10 @@
 ```
 yarn install
 ```
+### Run Backend (Json Server)
+```
+yarn backend
+```
 
 ### Compiles and hot-reloads for development
 ```
